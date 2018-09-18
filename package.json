@@ -1,0 +1,28 @@
+{
+  "name": "tcpleveldb",
+  "version": "0.0.1",
+  "description": "a implementation of the leveldb with a tcp-server and client in node.js",
+  "main": "lib/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "https://github.com/yamigr/tcpleveldb#readme",
+
+  "keywords": [
+    "tcpleveldb",
+    "store",
+    "database",
+    "leveldb",
+    "client",
+    "server",
+    "tcp"
+  ],
+  "author": "yannick grund, https://github.com/yamigr",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.6.1",
+    "leveldown": "^4.0.1",
+    "levelup": "^3.1.1",
+    "shortid": "^2.2.13"
+  }
+}
