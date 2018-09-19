@@ -100,7 +100,11 @@ describe('Server', function() {
                 assert.equal(err, null);
                 done(err)
             })
+        });  
+        it('test done', function(done) {
+            process.exit()
         });       
+    
     });
 });
   
