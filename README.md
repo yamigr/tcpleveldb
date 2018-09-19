@@ -1,6 +1,6 @@
 # tcpleveldb
 
-> A node-js-tcp database enviroment with server and client on top of the leveldb.
+> A node-js-tcp database environment with server and client on top of the leveldb.
 
 ## Installing
 ```js
