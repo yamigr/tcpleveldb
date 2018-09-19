@@ -2,13 +2,13 @@
 
 > A node-js-tcp database environment with server and client on top of the leveldb.
 
-You can run the server in a separate node-app as a standalone instance. Go to [server](#server)
-Then you can use the client in your node-app, web-app or another magic stuff to query the database. Go to [client](#client)
+You can run the server in a separate node-app as a standalone instance. Go to [server](#server).
+Then you can use the client in your node-app, web-app or another magic stuff to query the database. Go to [client](#client).
 
 [![Build Status](https://travis-ci.org/yamigr/tcpleveldb.svg?branch=master)](https://travis-ci.org/yamigr/tcpleveldb)
 
 ## Installing
-```js
+```sh
 npm install tcpleveldb --save
 ```
 <a name="server"></a>
@@ -37,7 +37,7 @@ srv.on('database', function(docs){console.log(docs)})
 <a name="client"></a>
 ## Client
 
-You can define a new database at './db'. If needed, do something like './users' or './dashboards', ... You know what i mean ;).
+You can define a new database at './db'. If needed, do something like './users' or './dashboards', ... You know what i mean :wink:.
 
 ```js
 var tcpleveldb = require('tcpleveldb')
@@ -98,8 +98,8 @@ client.batch('./db', batches, function(err, numberOfBatches){
 
 
 // var ops = { gte:'key', lte: 'key~' /*, reverse, limit, lt, gt, start, end...*/
-// For API options details see https://www.npmjs.com/package/leveldb. Thx :)
-// For gte and lte query see https://medium.com/@kevinsimper/how-to-get-range-of-keys-in-leveldb-and-how-gt-and-lt-works-29a8f1e11782 Thx :)
+// For API options details see https://www.npmjs.com/package/leveldb. Thx :v:
+// For gte and lte query see https://medium.com/@kevinsimper/how-to-get-range-of-keys-in-leveldb-and-how-gt-and-lt-works-29a8f1e11782 Thx :v:
 client.stream('./db', { /* ops */}, function(err, docs){
     console.log(err, docs) 
     // Output: null, [ { key: 'yamigr', value: 'https://github.com/yamigr' }, ...]
