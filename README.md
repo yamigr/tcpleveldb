@@ -42,7 +42,6 @@ You can define a new database at './db'. If needed, do something like './users' 
 ```js
 var tcpleveldb = require('tcpleveldb')
 
-
 var port = 2222
 var host = 'localhost'
 var user = ''
@@ -98,17 +97,25 @@ client.batch('./db', batches, function(err, numberOfBatches){
 
 
 // var ops = { gte:'key', lte: 'key~' /*, reverse, limit, lt, gt, start, end...*/
-// For API options details see https://www.npmjs.com/package/leveldb. Thx :v:
-// For gte and lte query see https://medium.com/@kevinsimper/how-to-get-range-of-keys-in-leveldb-and-how-gt-and-lt-works-29a8f1e11782 Thx :v:
+// For API options details see https://www.npmjs.com/package/leveldb. Thx :)
+// For gte and lte query see https://medium.com/@kevinsimper/how-to-get-range-of-keys-in-leveldb-and-how-gt-and-lt-works-29a8f1e11782 Thx :)
 client.stream('./db', { /* ops */}, function(err, docs){
     console.log(err, docs) 
     // Output: null, [ { key: 'yamigr', value: 'https://github.com/yamigr' }, ...]
+})
+client.stream('./db', function(err, docs){
+    console.log(err, docs) 
+    // without options you can stream the whole database
 })
 
 
 client.count('./db', {gte : 'obj:', lte : 'obj:~' /*ops*/}, function(err, numb){
     console.log(err, numb) 
     // Output: null, 2
+})
+client.count('./db', function(err, docs){
+    console.log(err, docs) 
+    // without options you can count the whole database
 })
 
 

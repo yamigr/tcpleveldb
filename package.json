@@ -4,10 +4,9 @@
   "description": "a implementation of the leveldb with a tcp-server and client in node.js",
   "main": "lib/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "homepage": "https://github.com/yamigr/tcpleveldb#readme",
-
   "keywords": [
     "tcpleveldb",
     "store",
@@ -24,5 +23,8 @@
     "leveldown": "^4.0.1",
     "levelup": "^3.1.1",
     "shortid": "^2.2.13"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }
