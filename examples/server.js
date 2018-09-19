@@ -1,5 +1,11 @@
 var tcpleveldb = require('../lib/main')
-var srv = new tcpleveldb.Server(2222, 'localhost') // or keep it empty default port: 2222, host: 'localhost'
+
+var port = 2222
+var host = 'localhost'
+var user = ''
+var password = ''
+
+var srv = new tcpleveldb.Server(port, host, user, password)
 srv.listen() 
 
 
