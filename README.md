@@ -96,9 +96,9 @@ client.batch('./db', batches, function(err, numberOfBatches){
 })
 
 
-// var ops = { gte:'key', lte: 'key~' /*, reverse, limit, lt, gt, start, end...*/
-// For API options details see https://www.npmjs.com/package/leveldb. Thx :)
-// For gte and lte query see https://medium.com/@kevinsimper/how-to-get-range-of-keys-in-leveldb-and-how-gt-and-lt-works-29a8f1e11782 Thx :)
+// ops : gte:'key', lte: 'key~', reverse, limit, lt, gt, start, end for timeseries...*/
+// api-detail https://www.npmjs.com/package/leveldb. Thx :)
+// Blog for gte, lte https://medium.com/@kevinsimper/how-to-get-range-of-keys-in-leveldb-and-how-gt-and-lt-works-29a8f1e11782 Thx :)
 client.stream('./db', { /* ops */}, function(err, docs){
     console.log(err, docs) 
     // Output: null, [ { key: 'yamigr', value: 'https://github.com/yamigr' }, ...]
