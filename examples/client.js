@@ -7,6 +7,9 @@ var password = ''
 
 var client = new tcpleveldb.Client(port, host, user, password)
 
+// add some additional query data to handle it on server-side
+client.addQuery = {topic : 'Hello'} 
+
 
 //if key is empty it will create one like c10zlYDlf
 client.put('./persons', {value : { name : 'Superman', city: 'Metropolis'}}, function(err, key){

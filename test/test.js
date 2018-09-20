@@ -101,6 +101,21 @@ describe('Server', function() {
                 done(err)
             })
         });  
+
+        it('add some special query keys to the client query', function(done) {
+
+            client.addQuery = { hello : 'world'}
+            
+            client.get('./test/test', 'test', function(err, id){
+
+            })
+            srv.on('clientMessage', function(data){
+                assert.equal(data.hello, 'world');
+                done()
+            })
+        });  
+
+
         it('test done', function(done) {
             process.exit()
         });       

@@ -25,14 +25,13 @@ var password = ''
 var srv = new tcpleveldb.Server(port, host, user, password)
 srv.listen() 
 
-
 //you can use some socket-events if needed
 srv.on('end', function(msg){console.log(msg)})
 srv.on('close', function(client){console.log(client)})
 srv.on('error', function(err){console.log(err)})
 srv.on('clientConnected', function(client){console.log(client)})
 srv.on('clientMessage', function(msg){console.log(msg)})
-srv.on('database', function(docs){console.log(docs)})
+srv.on('data', function(docs){console.log(docs)})
 ```
 <a name="client"></a>
 ## Client
@@ -48,6 +47,9 @@ var user = ''
 var password = ''
 
 var client = new tcpleveldb.Client(port, host, user, password)
+
+// add some additional query data to handle it on the server-side-event 'clientMessage' or 'data'
+client.addQuery = {topic : 'Hello'} 
 
 
 //if key is empty it will create one like c10zlYDlf
@@ -97,8 +99,8 @@ client.batch('./db', batches, function(err, numberOfBatches){
 
 
 // ops : gte:'key', lte: 'key~', reverse, limit, lt, gt, start, end for timeseries...*/
-// api-detail https://www.npmjs.com/package/leveldb. Thx :)
-// Blog for gte, lte https://medium.com/@kevinsimper/how-to-get-range-of-keys-in-leveldb-and-how-gt-and-lt-works-29a8f1e11782 Thx :)
+// For api options details see https://www.npmjs.com/package/leveldb. Thx :)
+// For gte and lte query see https://medium.com/@kevinsimper/how-to-get-range-of-keys-in-leveldb-and-how-gt-and-lt-works-29a8f1e11782 Thx :)
 client.stream('./db', { /* ops */}, function(err, docs){
     console.log(err, docs) 
     // Output: null, [ { key: 'yamigr', value: 'https://github.com/yamigr' }, ...]
@@ -107,7 +109,6 @@ client.stream('./db', function(err, docs){
     console.log(err, docs) 
     // without options you can stream the whole database
 })
-
 
 client.count('./db', {gte : 'obj:', lte : 'obj:~' /*ops*/}, function(err, numb){
     console.log(err, numb) 
