@@ -14,7 +14,10 @@
     "leveldb",
     "client",
     "server",
-    "tcp"
+    "tcp",
+    "IoT",
+    "frameworks",
+    "backend"
   ],
   "author": "yannick grund, https://github.com/yamigr",
   "license": "MIT",
