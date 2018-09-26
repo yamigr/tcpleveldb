@@ -4,9 +4,11 @@
 
 You can run the server in a separate node-app as a standalone instance. Go to [server](#server).
 Then you can use the client in your node-app, web-app or another magic stuff to query the database. Go to [client](#client).
+You can find a web-gui to manage the database-servers here. [tcpleveldb-panel](https://github.com/yamigr/tcpleveldb-panel)
 
 [![Build Status](https://travis-ci.org/yamigr/tcpleveldb.svg?branch=master)](https://travis-ci.org/yamigr/tcpleveldb)
 
+https://github.com/yamigr/tcpleveldb-panel
 ## Installing
 ```sh
 npm install tcpleveldb --save
