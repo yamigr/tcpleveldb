@@ -39,7 +39,8 @@ srv.on('data', function(docs){console.log(docs)})
 <a name="client"></a>
 ## Client
 
-You can define a new database at './db'. If needed, do something like './users' or './dashboards', ... You know what i mean :wink:.
+* You can define a new database at './db'. If needed, do something like './users' or './dashboards', ... .
+* While putting some data in the db and no key is set, auto-key is active. When the key containes '@key' (single or multiple-times), this substring will be replaced with a auto-key.
 
 ```js
 var tcpleveldb = require('tcpleveldb')
