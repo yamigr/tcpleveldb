@@ -146,7 +146,7 @@ client.query('./db', 'put', { key : 'querytest', value : 'hello'}, function(docs
         // handle err
     }
     else{
-        client.query('./test/test', 'get', { key : 'querytest'}, function(docs){
+        client.query('./db', 'get', { key : 'querytest'}, function(docs){
                 // docs { err : null, data : {key: 'querytest', value: 'hello'}}
         })
     }
