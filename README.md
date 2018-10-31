@@ -140,6 +140,17 @@ client.update('./db', { key : 'obj:1', value: {b : 'Whooooooooop'}}, function(er
     })
 })
 
+// use the query method the use all query-options in one method
+client.query('./db', 'put', { key : 'querytest', value : 'hello'}, function(docs){
+    if(docs.err){
+        // handle err
+    }
+    else{
+        client.query('./test/test', 'get', { key : 'querytest'}, function(docs){
+                // docs { err : null, data : {key: 'querytest', value: 'hello'}}
+        })
+    }
+})
 
 client.on('error', function(err){console.log(err)})
 client.on('connect', function(status){console.log(status)})

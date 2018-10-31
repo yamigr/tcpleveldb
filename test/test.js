@@ -1,6 +1,6 @@
 var assert = require('assert');
 var tcpleveldb = require('../lib/main')
-
+var fs = require('fs')
 var port = 2222
 var host = 'localhost'
 var user = ''
@@ -10,6 +10,7 @@ var srv = new tcpleveldb.Server(port, host, user, password)
 var client
 
 var filtekey
+var starter = false
 
 describe('Server', function() {
     before(function () {
@@ -103,18 +104,40 @@ describe('Server', function() {
         });  
 
         it('add some special query keys to the client query', function(done) {
-
+            starter = true
             client.addQuery = { hello : 'world'}
             
             client.get('./test/test', 'test', function(err, id){
 
             })
             srv.on('clientMessage', function(data){
-                assert.equal(data.hello, 'world');
-                done()
+                if(starter){
+                    starter = false
+                    assert.equal(data.hello, 'world');
+                    done()
+                }
+
             })
         });  
 
+        it('test method query', function(done) {
+
+            client.query('./test/test', 'put', { key : 'querytest', value : 'hello'}, function(docs){
+
+                if(docs.err){
+                    assert.equal(docs.err, null);
+                    done()
+                }
+                else{
+                    client.query('./test/test', 'get', { key : 'querytest'}, function(docs){
+                        assert.equal(docs.data.value, 'hello');
+                        done()
+                    })
+                }
+
+            })
+
+        });  
 
         it('test done', function(done) {
             process.exit()
