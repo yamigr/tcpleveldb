@@ -131,7 +131,10 @@ describe('Server', function() {
                 else{
                     client.query('./test/test', 'get', { key : 'querytest'}, function(docs){
                         assert.equal(docs.data.value, 'hello');
-                        done()
+                        client.query('./test/test', 'del', { key : 'querytest'}, function(docs){
+                            assert.equal(docs.data, 'querytest');
+                            done()
+                        })
                     })
                 }
 
