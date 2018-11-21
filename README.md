@@ -52,6 +52,9 @@ var password = ''
 
 var client = new tcpleveldb.Client(port, host, user, password)
 
+// Define your own key which should be replaced by a unique id
+client.key = '{mykey}'
+
 // add some additional query data to handle it on the server-side-event 'clientMessage' or 'data'
 client.addQuery = {topic : 'Hello'} 
 

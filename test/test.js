@@ -12,7 +12,12 @@ var client
 var filtekey
 var starter = false
 
-describe('Server', function() {
+
+const path = require('path');
+
+const directory = './test';
+
+describe('Server', function(done) {
     before(function () {
         srv.listen();
     });
@@ -22,7 +27,14 @@ describe('Server', function() {
             client = new tcpleveldb.Client(2222, 'localhost', '', '')
             client.stream('./test/test', {}, function(err, docs){
                 assert.equal(err, null);
-                done(err)
+                var batcher = []
+                for(let doc in docs){
+                    batcher.push({type: 'del', key: docs[doc].key})
+                }
+                client.batch('./test/test', batcher, function(err, docs){
+                    done(err)
+                })
+
             })
         });
     });
@@ -34,6 +46,16 @@ describe('Server', function() {
                 done(err)
             })
         });
+
+        it('put data with special key', function(done) {
+
+            client.key = '{key}'
+            client.put('./test/test', {key : client.key, value : 'Special key'}, function(err, docs){
+                assert.notEqual(docs.key, client.key);
+                done(err)
+            })
+        });
+
 
         it('get the data from the database', function(done) {
             client.get('./test/test', 'test', function(err, docs){
@@ -77,7 +99,7 @@ describe('Server', function() {
 
         it('count all datasets in database whithout options', function(done) {
             client.count('./test/test', function(err, numb){
-                assert.equal(numb, 11);
+                assert.equal(numb, 12);
                 done(err)
             })
         });
