@@ -9,14 +9,9 @@ var password = ''
 var srv = new tcpleveldb.Server(port, host, user, password)
 var client
 
-var filtekey
 var starter = false
 
-
-const path = require('path');
-
-const directory = './test';
-
+var dbpath = './test'
 describe('Server', function(done) {
     before(function () {
         srv.listen();
@@ -25,13 +20,15 @@ describe('Server', function(done) {
     describe('#Client connect', function() {
         it('connect client', function(done) {
             client = new tcpleveldb.Client(2222, 'localhost', '', '')
-            client.stream('./test/test', {}, function(err, docs){
+
+            client.on('connected', function(data){ console.log(data)})
+            client.stream(dbpath, {}, function(err, docs){
                 assert.equal(err, null);
                 var batcher = []
                 for(let doc in docs){
                     batcher.push({type: 'del', key: docs[doc].key})
                 }
-                client.batch('./test/test', batcher, function(err, docs){
+                client.batch(dbpath, batcher, function(err, docs){
                     done(err)
                 })
 
@@ -41,7 +38,7 @@ describe('Server', function(done) {
 
     describe('#Query', function() {
         it('put data in the database', function(done) {
-            client.put('./test/test', {key : 'test', value : 'Test value'}, function(err, docs){
+            client.put(dbpath, {key : 'test', value : 'Test value'}, function(err, docs){
                 assert.equal(err, null);
                 done(err)
             })
@@ -50,7 +47,7 @@ describe('Server', function(done) {
         it('put data with special key', function(done) {
 
             client.key = '{key}'
-            client.put('./test/test', {key : client.key, value : 'Special key'}, function(err, docs){
+            client.put(dbpath, {key : client.key, value : 'Special key'}, function(err, docs){
                 assert.notEqual(docs.key, client.key);
                 done(err)
             })
@@ -58,7 +55,7 @@ describe('Server', function(done) {
 
 
         it('get the data from the database', function(done) {
-            client.get('./test/test', 'test', function(err, docs){
+            client.get(dbpath, 'test', function(err, docs){
                 assert.equal(err, null);
                 done(err)
             })
@@ -70,56 +67,56 @@ describe('Server', function(done) {
                 filterkey = new Date().getTime() * Math.random()
                 batcher.push({type: 'put', key: 'time:' + filterkey, value : 'Hello World ' + filterkey})
             }
-            client.batch('./test/test', batcher, function(err, docs){
+            client.batch(dbpath, batcher, function(err, docs){
                 assert.equal(err, null);
                 done(err)
             })
         });
 
         it('stream the database with options', function(done) {
-            client.stream('./test/test', { gte: 'time:', lte: 'time:~'}, function(err, docs){
+            client.stream(dbpath, { gte: 'time:', lte: 'time:~'}, function(err, docs){
                 assert.equal(docs.length, 10);
                 done(err)
             })
         });
 
         it('stream the whole database whithout options', function(done) {
-            client.stream('./test/test', function(err, docs){
+            client.stream(dbpath, function(err, docs){
                 assert.equal(err, null);
                 done(err)
             })
         });
 
         it('count the datasets in database with options', function(done) {
-            client.count('./test/test', { gte: 'time:', lte: 'time:~'}, function(err, numb){
+            client.count(dbpath, { gte: 'time:', lte: 'time:~'}, function(err, numb){
                 assert.equal(numb, 10);
                 done(err)
             })
         });
 
         it('count all datasets in database whithout options', function(done) {
-            client.count('./test/test', function(err, numb){
+            client.count(dbpath, function(err, numb){
                 assert.equal(numb, 12);
                 done(err)
             })
         });
 
         it('update a dataset in the database', function(done) {
-            client.update('./test/test', {key : 'test', value: 'Whoooooooop'}, function(err, id){
+            client.update(dbpath, {key : 'test', value: 'Whoooooooop'}, function(err, id){
                 assert.equal(err, null);
                 done(err)
             })
         });
 
         it('filter a dataset by value', function(done) {
-            client.filter('./test/test', 'Hello World ' + filterkey, function(err, docs){
+            client.filter(dbpath, 'Hello World ' + filterkey, function(err, docs){
                 assert.equal(err, null);
                 done(err)
             })
         });
 
         it('delete a dataset', function(done) {
-            client.del('./test/test', 'test', function(err, id){
+            client.del(dbpath, 'test', function(err, id){
                 assert.equal(err, null);
                 done(err)
             })
@@ -129,7 +126,7 @@ describe('Server', function(done) {
             starter = true
             client.addQuery = { hello : 'world'}
             
-            client.get('./test/test', 'test', function(err, id){
+            client.get(dbpath, 'test', function(err, id){
 
             })
             srv.on('clientMessage', function(data){
@@ -144,16 +141,16 @@ describe('Server', function(done) {
 
         it('test method query', function(done) {
 
-            client.query('./test/test', 'put', { key : 'querytest', value : 'hello'}, function(docs){
+            client.query(dbpath, 'put', { key : 'querytest', value : 'hello'}, function(docs){
 
                 if(docs.err){
                     assert.equal(docs.err, null);
                     done()
                 }
                 else{
-                    client.query('./test/test', 'get', { key : 'querytest'}, function(docs){
+                    client.query(dbpath, 'get', { key : 'querytest'}, function(docs){
                         assert.equal(docs.data.value, 'hello');
-                        client.query('./test/test', 'del', { key : 'querytest'}, function(docs){
+                        client.query(dbpath, 'del', { key : 'querytest'}, function(docs){
                             assert.equal(docs.data, 'querytest');
                             done()
                         })
