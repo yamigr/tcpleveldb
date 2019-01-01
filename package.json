@@ -1,6 +1,6 @@
 {
   "name": "tcpleveldb",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "a implementation of the leveldb with a tcp-server and client in node.js",
   "main": "lib/main.js",
   "scripts": {
