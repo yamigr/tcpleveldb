@@ -117,6 +117,18 @@ client.stream('./db', function(err, docs){
     // without options you can stream the whole database
 })
 
+// stream all keys
+client.keys('./db', { /* ops */}, function(err, docs){
+    console.log(err, docs) 
+    // Output: null, [ key1, ...]
+})
+
+// stream all keys
+client.values('./db', { /* ops */}, function(err, docs){
+    console.log(err, docs) 
+    // Output: null, [ value1, ...]
+})
+
 client.count('./db', {gte : 'obj:', lte : 'obj:~' /*ops*/}, function(err, numb){
     console.log(err, numb) 
     // Output: null, 2

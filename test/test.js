@@ -87,6 +87,20 @@ describe('Server', function(done) {
             })
         });
 
+        it('stream the keys', function(done) {
+            client.keys(dbpath, function(err, keys){
+                assert.equal(err, null);
+                done(err)
+            })
+        });
+
+        it('stream the values', function(done) {
+            client.values(dbpath, function(err, values){
+                assert.equal(err, null);
+                done(err)
+            })
+        });
+
         it('count the datasets in database with options', function(done) {
             client.count(dbpath, { gte: 'time:', lte: 'time:~'}, function(err, numb){
                 assert.equal(numb, 10);

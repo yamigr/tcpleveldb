@@ -1,5 +1,5 @@
-2018/12/17-22:45:55.077 20f8 Recovering log #3
-2018/12/17-22:45:55.078 20f8 Level-0 table #5: started
-2018/12/17-22:45:55.180 20f8 Level-0 table #5: 589 bytes OK
-2018/12/17-22:45:55.260 20f8 Delete type=0 #3
-2018/12/17-22:45:55.260 20f8 Delete type=3 #2
+2019/01/01-17:22:57.422 2e1c Recovering log #15
+2019/01/01-17:22:57.422 2e1c Level-0 table #18: started
+2019/01/01-17:22:57.460 2e1c Level-0 table #18: 873 bytes OK
+2019/01/01-17:22:57.560 2e1c Delete type=0 #15
+2019/01/01-17:22:57.561 2e1c Delete type=3 #13
