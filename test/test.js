@@ -116,14 +116,14 @@ describe('Server', function(done) {
         });
 
         it('update a dataset in the database', function(done) {
-            client.update(dbpath, {key : 'test', value: 'Whoooooooop'}, function(err, id){
+            client.update(dbpath, {key : 'test', value: { test : 'mongooselike', obj : { nested : 'filter'}}}, function(err, id){
                 assert.equal(err, null);
                 done(err)
             })
         });
 
         it('filter a dataset by value', function(done) {
-            client.filter(dbpath, 'Hello World ' + filterkey, function(err, docs){
+            client.filter(dbpath, { 'value.obj.nested' : { $in : ['filter']}}, function(err, docs){
                 assert.equal(err, null);
                 done(err)
             })

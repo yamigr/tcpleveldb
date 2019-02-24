@@ -138,10 +138,16 @@ client.count('./db', function(err, docs){
     // without options you can count the whole database
 })
 
-
-client.filter('./db', {b : 'abc'}, function(err, docs){
+/* mongodb like array-filtering. a huge thx to davidtpate, https://www.npmjs.com/package/bloc 
+   the array to filter looks like [ { key : '', value : '' or object }, ....].
+   a single entry with object as value looks like {key : 'test', value: { test : 'mongooselike', obj : { nested : 'filter'}}}
+   the nested filter looks like { 'value.obj.nested' : { $in : ['filter'] }}
+   in the example bellow, the value is a string
+*/
+client.filter('./db', { value : { $in : ['Special key', 'Whoooooooop']}}, function(err, docs){
     console.log(err, docs) 
-    // Output: null, [ { key: 'obj:1', value: { a: 123, b: 'abc', c: 'Hello World!' } } ]
+    // Output: null [ { key: '-Gj_-CweyG', value: 'Special key' },
+    //                { key: 'test', value: 'Whoooooooop' } ]
 })
 
 
